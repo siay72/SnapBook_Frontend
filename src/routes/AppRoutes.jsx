@@ -4,6 +4,9 @@ import Register from "../pages/Register";
 import Feed from "../pages/Feed";
 import MainLayout from "../layouts/MainLayout";
 import ActivateAccount from "../pages/ActivateAccount ";
+import Profile from "../pages/Profile";
+import ResetPasswordConfirm from "../pages/ResetPasswordConfirm";
+import ForgotPassword from "../pages/ForgotPassword";
 
 export default function AppRoutes() {
   return (
@@ -18,7 +21,12 @@ export default function AppRoutes() {
       <Route
         element={ <MainLayout /> }>
         <Route path="/" element={<Feed />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
+
+      {/* Forgot password */}
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirm />} />
 
     </Routes>
   );

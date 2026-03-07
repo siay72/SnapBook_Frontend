@@ -3,11 +3,13 @@ import useAuthContext from "../hooks/useAuthContext";
 import ErroAlert from "../components/ErrorAlert";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 const Register = () => {
   const { registerUser, errorMsg } = useAuthContext();
   const [successMsg, setSuccessMsg] = useState("");
   const [registeredEmail, setRegisteredEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -17,7 +19,9 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    setLoading(true);
     delete data.confirm_password;
+    
 
     try {
       const response = await registerUser(data);
@@ -25,15 +29,22 @@ const Register = () => {
       if (response.success) {
         setSuccessMsg(response.message);
         setRegisteredEmail(data.email);
+        toast.success("Registration successful! Please check your email to activate your account.");
       }
     } catch (error) {
       console.log("Registration failed", error);
+      toast.error("Registration failed. Please try again.");
     }
+      finally { 
+        setLoading(false);
+      };
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center px-4 py-12 bg-base-200">
-      <div className="card w-full max-w-md bg-base-100 shadow-xl">
+    <div className="flex min-h-screen items-center justify-center px-4 py-12 bg-cover bg-center"
+       style={{ backgroundImage: "url('/bg-image.png')" }}
+    >
+      <div className="bg-linear-to-r from-pink-300 to-purple-300 backdrop-blur-md rounded-xl shadow-xl p-6 sm:p-8 w-full max-w-md">
         <div className="card-body">
 
           {/* Error Alert */}
@@ -65,8 +76,8 @@ const Register = () => {
                 </p>
                 )}
 
-          <h2 className="card-title text-2xl font-bold">Sign Up</h2>
-          <p className="text-base-content/70">
+          <h2 className="text-4xl font-bold mb-2 text-black">Sign Up</h2>
+          <p className="text-gray-600 mb-6">
             Create an account to get started
           </p>
 
@@ -75,14 +86,14 @@ const Register = () => {
             {/* First Name */}
             <div className="form-control">
               <label className="label" htmlFor="first_name">
-                <span className="label-text">First Name</span>
+                <span className="text-sm text-black font-medium">First Name</span>
               </label>
 
               <input
                 id="first_name"
                 type="text"
                 placeholder="John"
-                className="input input-bordered w-full"
+                className="flex items-center text-sm text-black font-medium bg-amber-500 border rounded-lg mt-1 p-2 w-full"
                 {...register("first_name", {
                   required: "First Name is Required",
                 })}
@@ -98,14 +109,14 @@ const Register = () => {
             {/* Last Name */}
             <div className="form-control">
               <label className="label" htmlFor="last_name">
-                <span className="label-text">Last Name</span>
+                <span className="text-sm text-black font-medium">Last Name</span>
               </label>
 
               <input
                 id="last_name"
                 type="text"
                 placeholder="Doe"
-                className="input input-bordered w-full"
+                className="flex items-center text-sm text-black font-medium bg-amber-500 border rounded-lg mt-1 p-2 w-full"
                 {...register("last_name", {
                   required: "Last Name is Required",
                 })}
@@ -121,14 +132,14 @@ const Register = () => {
             {/* Email */}
             <div className="form-control">
               <label className="label" htmlFor="email">
-                <span className="label-text">Email</span>
+                <span className="text-sm text-black font-medium">Email</span>
               </label>
 
               <input
                 id="email"
                 type="email"
                 placeholder="name@example.com"
-                className="input input-bordered w-full"
+                className="flex items-center text-sm text-black font-medium bg-amber-500 border rounded-lg mt-1 p-2 w-full"
                 {...register("email", {
                   required: "Email is Required",
                 })}
@@ -144,14 +155,14 @@ const Register = () => {
             {/* Location */}
             <div className="form-control">
               <label className="label" htmlFor="location">
-                <span className="label-text">Location</span>
+                <span className="text-sm text-black font-medium">Location</span>
               </label>
 
               <input
                 id="location"
                 type="text"
                 placeholder="Dhaka"
-                className="input input-bordered w-full"
+                className="flex items-center text-sm text-black font-medium bg-amber-500 border rounded-lg mt-1 p-2 w-full"
                 {...register("location")}
               />
             </div>
@@ -159,14 +170,14 @@ const Register = () => {
             {/* Phone Number */}
             <div className="form-control">
               <label className="label" htmlFor="phone_number">
-                <span className="label-text">Phone Number</span>
+                <span className="text-sm text-black font-medium">Phone Number</span>
               </label>
 
               <input
                 id="phone_number"
                 type="text"
                 placeholder="0123456789"
-                className="input input-bordered w-full"
+                className="flex items-center text-sm text-black font-medium bg-amber-500 border rounded-lg mt-1 p-2 w-full"
                 {...register("phone_number")}
               />
             </div>
@@ -174,14 +185,14 @@ const Register = () => {
             {/* Password */}
             <div className="form-control">
               <label className="label" htmlFor="password">
-                <span className="label-text">Password</span>
+                <span className="text-sm text-black font-medium">Password</span>
               </label>
 
               <input
                 id="password"
                 type="password"
                 placeholder="••••••••"
-                className="input input-bordered w-full"
+                className="flex items-center text-sm text-black font-medium bg-amber-500 border rounded-lg mt-1 p-2 w-full"
                 {...register("password", {
                   required: "Password is required",
                   minLength: {
@@ -201,14 +212,14 @@ const Register = () => {
             {/* Confirm Password */}
             <div className="form-control">
               <label className="label" htmlFor="confirmPassword">
-                <span className="label-text">Confirm Password</span>
+                <span className="text-sm text-black font-medium">Confirm Password</span>
               </label>
 
               <input
                 id="confirmPassword"
                 type="password"
                 placeholder="••••••••"
-                className="input input-bordered w-full"
+                className="flex items-center text-sm text-black font-medium bg-amber-500 border rounded-lg mt-1 p-2 w-full"
                 {...register("confirm_password", {
                   required: "Confirm Password is required",
                   validate: (value) =>
@@ -225,14 +236,14 @@ const Register = () => {
 
             {/* Submit Button */}
             <button type="submit" className="btn btn-primary w-full">
-              Register
+              {loading ? "Registering..." : "Register"}
             </button>
 
           </form>
 
           {/* Login Link */}
           <div className="text-center mt-4">
-            <p className="text-base-content/70">
+            <p className="text-black/70">
               Already have an account?{" "}
               <Link to="/login" className="link link-primary">
                 Sign in

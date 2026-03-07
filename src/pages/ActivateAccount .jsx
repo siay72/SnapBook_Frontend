@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import ErrorAlert from "../components/ErrorAlert";
 import apiClient from "../services/auth-api-client";
+import toast from "react-hot-toast";
 
 const ActivateAccount = () => {
   const { uid, token } = useParams();
@@ -24,7 +25,7 @@ const ActivateAccount = () => {
           uid,
           token,
         });
-
+        toast.success("Account activated successfully! Redirecting to login...");
         setMessage("Account activated successfully. Redirecting to login...");
       } catch (err) {
         console.log(err);
@@ -46,7 +47,8 @@ const ActivateAccount = () => {
   }, [uid, token, navigate]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-base-200 px-4">
+    <div className="flex items-center justify-center min-h-screen bg-base-200 px-4"
+       style={{ backgroundImage: "url('/bg-image.png')", backgroundSize: "cover" }}>
       <div className="card bg-base-100 shadow-xl p-6 w-full max-w-md">
 
         <h2 className="text-2xl font-bold mb-4 text-center">

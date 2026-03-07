@@ -1,5 +1,5 @@
 import { FaUser, FaEyeSlash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAuthContext from "../hooks/useAuthContext";
 import { useState } from "react";
@@ -51,9 +51,9 @@ const Login = () => {
       </div>
 
       {/* LOGIN CARD */}
-      <div className="bg-white/80 backdrop-blur-md rounded-xl shadow-xl p-6 sm:p-8 w-full max-w-md">
+      <div className="bg-linear-to-r from-pink-300 to-purple-300 backdrop-blur-md rounded-xl shadow-xl p-6 sm:p-8 w-full max-w-md">
 
-        <h2 className="text-4xl font-bold mb-2 text-pink-400">Login</h2>
+        <h2 className="text-4xl font-bold mb-2 text-black">Login</h2>
 
         <p className="text-gray-600 mb-6">
           Hello Everyone, Welcome Back
@@ -121,11 +121,11 @@ const Login = () => {
           </div>
 
           {/* Forgot */}
-          <div className="flex justify-between text-sm mb-6">
-            <span className="text-blue-500 cursor-pointer">
-              Forget Password?
-            </span>
-          </div>
+          <div className="text-right">
+              <Link to="/forgot-password" className="link link-primary text-sm">
+                Forgot Password?
+              </Link>
+            </div>
 
           {/* Buttons */}
           <div className="flex gap-3">
@@ -148,7 +148,7 @@ const Login = () => {
 
         </form>
 
-        <div className="text-center text-gray-400 mt-6">
+        <div className="text-center text-black mt-6">
           OR Connect With
         </div>
 

@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import { FiBell, FiHome, FiUser, FiMoon } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuthContext from "../hooks/useAuthContext";
 import authApiClient from "../services/auth-api-client";
 
 const Navbar = () => {
   const { user, logoutUser } = useAuthContext();
-
   const [totalPosts, setTotalPosts] = useState(0);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPostCount = async () => {
@@ -35,7 +36,9 @@ const Navbar = () => {
           className="bg-sky-500 px-4 py-1 rounded-lg outline-none placeholder-white"
         />
 
-        <FiHome className="text-xl cursor-pointer" />
+        <FiHome 
+          onClick={() => navigate("/")}
+          className="text-xl cursor-pointer" />
         <FiUser className="text-xl cursor-pointer" />
       </div>
 
