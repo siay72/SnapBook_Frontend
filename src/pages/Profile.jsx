@@ -8,7 +8,7 @@ const Profile = () => {
 
 
   return (
-    <div className="max-w-7xl bg-white mx-auto mt-6 px-4">
+    <div className="max-w-7xl bg-white mx-auto px-4">
 
       {/* Cover */}
       <ProfileHeader />

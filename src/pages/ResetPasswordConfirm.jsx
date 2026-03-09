@@ -12,6 +12,7 @@ const ResetPasswordConfirm = () => {
   const { confirmPasswordReset, errorMsg } = useAuthContext();
 
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -52,6 +53,7 @@ const ResetPasswordConfirm = () => {
       setLoading(false);
 
     }
+
   };
 
   return (
@@ -63,7 +65,6 @@ const ResetPasswordConfirm = () => {
 
       <div className="bg-linear-to-r from-pink-300 to-purple-300 backdrop-blur-md rounded-xl shadow-xl p-6 sm:p-8 w-full max-w-md">
 
-        {/* Error Alert */}
         {errorMsg && <ErroAlert error={errorMsg} />}
 
         <h2 className="text-4xl font-bold mb-2 text-black">
@@ -86,7 +87,7 @@ const ResetPasswordConfirm = () => {
             </label>
 
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="••••••••"
               className="flex items-center text-sm text-black font-medium bg-amber-500 border rounded-lg mt-1 p-2 w-full"
               {...register("password", {
@@ -106,7 +107,6 @@ const ResetPasswordConfirm = () => {
 
           </div>
 
-
           {/* Confirm Password */}
           <div className="form-control">
 
@@ -117,7 +117,7 @@ const ResetPasswordConfirm = () => {
             </label>
 
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="••••••••"
               className="flex items-center text-sm text-black font-medium bg-amber-500 border rounded-lg mt-1 p-2 w-full"
               {...register("confirm_password", {
@@ -135,6 +135,25 @@ const ResetPasswordConfirm = () => {
 
           </div>
 
+          {/* Show Password Toggle */}
+          <div className="form-control">
+
+            <label className="label cursor-pointer">
+
+              <span className="text-sm text-black font-medium">
+                Show Password
+              </span>
+
+              <input
+                type="checkbox"
+                className="toggle toggle-primary"
+                checked={showPassword}
+                onChange={() => setShowPassword(!showPassword)}
+              />
+
+            </label>
+
+          </div>
 
           {/* Submit Button */}
           <button
@@ -152,6 +171,7 @@ const ResetPasswordConfirm = () => {
     </div>
 
   );
+
 };
 
 export default ResetPasswordConfirm;

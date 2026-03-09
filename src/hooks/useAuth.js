@@ -39,6 +39,7 @@ const useAuth = () => {
     } else {
       setLoading(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authTokens]);
 
   // -----------------------------
@@ -113,38 +114,59 @@ const useAuth = () => {
   // -----------------------------
   // Update Profile
   // -----------------------------
-  const updateUserProfile = async (data) => {
-    setErrorMsg("");
+ const updateUserProfile = async (formData) => {
 
-    try {
-      await apiClient.put("/auth/users/me/", data, {
-        headers: {
-          Authorization: `JWT ${authTokens?.access}`,
-        },
-      });
+  try {
 
-      await fetchUserProfile();
-    } catch (error) {
-      return handleAPIError(error);
-    }
-  };
+    const res = await apiClient.patch(
+      `/profile/${user.id}/`,
+      formData
+    );
 
+    const updatedUser = {
+      ...res.data,
+      profile_picture: res.data.profile_picture
+        ? `${res.data.profile_picture}?v=${Date.now()}`
+        : null
+    };
+
+    setUser(updatedUser);
+
+    return { success: true, data: updatedUser };
+
+  } catch (error) {
+
+    console.log("PROFILE UPDATE ERROR:", error);
+
+    setErrorMsg(error.response?.data || "Profile update failed");
+
+    return { success: false };
+
+  }
+
+};
   // -----------------------------
   // Change Password
   // -----------------------------
   const changePassword = async (data) => {
-    setErrorMsg("");
 
-    try {
-      await apiClient.post("/auth/users/set_password/", data, {
-        headers: {
-          Authorization: `JWT ${authTokens?.access}`,
-        },
-      });
-    } catch (error) {
-      return handleAPIError(error);
-    }
-  };
+  setErrorMsg("");
+
+  try {
+
+    await apiClient.post("/auth/users/set_password/", data);
+
+    return {
+      success: true
+    };
+
+  } catch (error) {
+
+    return handleAPIError(error, "Failed to change password");
+
+  }
+
+};
 
   // -----------------------------
   // Request Password Reset

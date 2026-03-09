@@ -1,49 +1,78 @@
 import { useEffect, useState } from "react";
-import { FiBell, FiHome, FiUser, FiMoon } from "react-icons/fi";
-import { Link, useNavigate } from "react-router-dom";
+import { FiBell, FiHome, FiUser, FiMenu, FiDatabase } from "react-icons/fi";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import useAuthContext from "../hooks/useAuthContext";
 import authApiClient from "../services/auth-api-client";
+import { AiFillDashboard } from "react-icons/ai";
 
 const Navbar = () => {
+
   const { user, logoutUser } = useAuthContext();
   const [totalPosts, setTotalPosts] = useState(0);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
 
   const navigate = useNavigate();
 
   useEffect(() => {
+
     const fetchPostCount = async () => {
+
       try {
+
         const response = await authApiClient.get("/posts/");
         setTotalPosts(response.data.count);
+
       } catch (error) {
+
         console.log("Error fetching post count", error);
+
       }
+
     };
 
     fetchPostCount();
+
   }, []);
 
+  const handleSearch = (value) => {
+
+    setSearchQuery(value);
+
+    if (value) {
+      setSearchParams({ search: value });
+      navigate(`/?search=${value}`);
+    } else {
+      setSearchParams({});
+      navigate("/");
+    }
+
+  };
+
   return (
-    <div className="w-full bg-sky-600 text-white px-6 py-3 flex items-center justify-between">
+
+    <div className="navbar bg-sky-600 text-white px-4">
 
       {/* LEFT */}
-      <div className="flex items-center gap-6">
-        <h1 className="text-xl font-bold">SnapBook</h1>
+      <div className="navbar-start gap-2">
 
-        <input
-          type="text"
-          placeholder="Find Friends..."
-          className="bg-sky-500 px-4 py-1 rounded-lg outline-none placeholder-white"
-        />
+        {/* Drawer Toggle (Mobile Sidebar Button) */}
+        <label htmlFor="drawer-toggle" className="btn btn-ghost lg:hidden">
+          <FiMenu className="text-xl" />
+        </label>
 
-        <FiHome 
+        {/* Logo */}
+        <h1
+          className="text-lg sm:text-xl font-bold cursor-pointer"
           onClick={() => navigate("/")}
-          className="text-xl cursor-pointer" />
-        <FiUser className="text-xl cursor-pointer" />
+        >
+          SnapBook
+        </h1>
+
       </div>
 
       {/* CENTER */}
-      <div className="hidden lg:flex gap-4">
+      <div className="navbar-center hidden lg:flex gap-4">
 
         <div className="bg-sky-500 px-4 py-1 rounded-lg">
           <span className="font-bold">{totalPosts}</span> Total Posts
@@ -56,38 +85,80 @@ const Navbar = () => {
       </div>
 
       {/* RIGHT */}
-      <div className="flex items-center gap-4">
+      <div className="navbar-end flex items-center gap-2 sm:gap-3">
 
+        {/* Search */}
+        <input
+          type="text"
+          placeholder="Find something..."
+          value={searchQuery}
+          onChange={(e) => handleSearch(e.target.value)}
+          className="hidden sm:block bg-sky-500 px-3 py-1 rounded-lg outline-none placeholder-white w-32 md:w-48"
+        />
+
+        {/* Notification */}
         <div className="relative cursor-pointer">
+
           <FiBell className="text-xl" />
+
           <span className="absolute -top-2 -right-2 bg-red-500 text-xs px-1 rounded-full">
             2
           </span>
+
         </div>
 
-
-
+        {/* USER */}
         {user ? (
-          <div className="flex items-center gap-2">
 
-            <img
-              src={user.profile_image || "https://i.pravatar.cc/40"}
-              className="w-8 h-8 rounded-full"
-              alt="avatar"
-            />
+          <div className="dropdown dropdown-end">
 
-            <span>{user.first_name || "User"}</span>
+            <label tabIndex={0} className="flex items-center gap-2 cursor-pointer">
 
-            <button
-              onClick={logoutUser}
-              className="bg-red-500 px-2 py-1 rounded text-xs"
+              <img
+                src={user.profile_picture || "https://i.pravatar.cc/40"}
+                className="w-8 h-8 rounded-full"
+                alt="avatar"
+              />
+
+              <span className="hidden md:block">
+                {user.first_name || "User"}
+              </span>
+
+            </label>
+
+            <ul
+              tabIndex={0}
+              className="menu dropdown-content mt-3 z-10 p-2 shadow bg-white text-black rounded-box w-40"
             >
-              Logout
-            </button>
+
+              <li>
+                <Link className="flex gap-2" to="/dashboard">
+                  <AiFillDashboard /> Dashboard
+                </Link>
+              </li>
+              <li>
+                <Link className="flex gap-2" to="/profile">
+                  <FiUser /> Profile
+                </Link>
+              </li>
+
+              <li>
+                <button
+                  onClick={logoutUser}
+                  className="text-red-500"
+                >
+                  Logout
+                </button>
+              </li>
+
+            </ul>
 
           </div>
+
         ) : (
-          <>
+
+          <div className="flex gap-2">
+
             <Link className="btn btn-outline btn-sm" to="/login">
               Login
             </Link>
@@ -95,11 +166,17 @@ const Navbar = () => {
             <Link className="btn btn-secondary btn-sm" to="/register">
               Register
             </Link>
-          </>
+
+          </div>
+
         )}
+
       </div>
+
     </div>
+
   );
+
 };
 
 export default Navbar;

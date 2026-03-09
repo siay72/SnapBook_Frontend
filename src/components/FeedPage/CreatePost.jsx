@@ -2,6 +2,7 @@ import { useState } from "react";
 import authApiClient from "../../services/auth-api-client";
 import useAuthContext from "../../hooks/useAuthContext";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const CreatePost = ({ onPostCreated }) => {
   const { user } = useAuthContext();
@@ -9,6 +10,8 @@ const CreatePost = ({ onPostCreated }) => {
   const [caption, setCaption] = useState("");
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async () => {
     if (!caption && !image) return;
@@ -48,8 +51,9 @@ const CreatePost = ({ onPostCreated }) => {
       {/* User info */}
       <div className="flex items-center gap-3 mb-3">
         <img
-          src={user?.profile_image || "https://i.pravatar.cc/40"}
-          className="w-10 h-10 rounded-full"
+          src={user?.profile_picture || "https://i.pravatar.cc/40"}
+          onClick={() => navigate("/profile")}
+          className="w-10 h-10 rounded-full cursor-pointer"
         />
 
         <input

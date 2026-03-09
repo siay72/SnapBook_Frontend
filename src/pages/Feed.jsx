@@ -8,7 +8,7 @@ const Feed = () => {
 
   return (
 
-    <div className="max-w-7xl bg-white mx-auto px-4 mt-6">
+    <div className="max-w-7xl bg-white mx-auto px-4">
 
   <div className="grid grid-cols-12 gap-6">
 
@@ -20,7 +20,7 @@ const Feed = () => {
     </div>
 
     {/* MAIN FEED */}
-    <div className="col-span-12 lg:col-span-6">
+    <div className="col-span-12 lg:col-span-6 mt-4">
       <NewsFeed />
     </div>
 

@@ -7,6 +7,11 @@ import ActivateAccount from "../pages/ActivateAccount ";
 import Profile from "../pages/Profile";
 import ResetPasswordConfirm from "../pages/ResetPasswordConfirm";
 import ForgotPassword from "../pages/ForgotPassword";
+import DashboardLayout from "../layouts/DashboardLayout";
+import Dashboard from "../pages/Dashboard";
+import EditProfile from "../pages/EditProfile";
+import ChangePassword from "../pages/ChangePassword";
+import UsersVisible from "../pages/UsersVisible";
 
 export default function AppRoutes() {
   return (
@@ -27,6 +32,15 @@ export default function AppRoutes() {
       {/* Forgot password */}
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirm />} />
+
+      <Route element={<DashboardLayout />}>
+
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/settings/profile" element={<EditProfile />} />
+        <Route path="/settings/change-password" element={<ChangePassword />} />
+        <Route path="/dashboard/users" element={<UsersVisible />} />
+
+      </Route>
 
     </Routes>
   );

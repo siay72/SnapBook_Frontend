@@ -1,4 +1,4 @@
-import { FaUser, FaEyeSlash } from "react-icons/fa";
+import { FaUser, FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import useAuthContext from "../hooks/useAuthContext";
@@ -8,7 +8,9 @@ const Login = () => {
 
   const navigate = useNavigate();
   const { loginUser, errorMsg } = useAuthContext();
+
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const {
     register,
@@ -17,22 +19,31 @@ const Login = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+
     setLoading(true);
 
     try {
+
       const response = await loginUser(data);
 
       if (response?.success) {
-        navigate("/"); // go to feed
+        navigate("/");
       }
+
     } catch (error) {
+
       console.log("Login Failed", error);
+
     } finally {
+
       setLoading(false);
+
     }
+
   };
 
   return (
+
     <div
       className="min-h-screen bg-cover bg-center flex items-center justify-center lg:justify-end px-4 lg:px-20 relative"
       style={{ backgroundImage: "url('/bg-image.png')" }}
@@ -53,13 +64,14 @@ const Login = () => {
       {/* LOGIN CARD */}
       <div className="bg-linear-to-r from-pink-300 to-purple-300 backdrop-blur-md rounded-xl shadow-xl p-6 sm:p-8 w-full max-w-md">
 
-        <h2 className="text-4xl font-bold mb-2 text-black">Login</h2>
+        <h2 className="text-4xl font-bold mb-2 text-black">
+          Login
+        </h2>
 
         <p className="text-gray-600 mb-6">
           Hello Everyone, Welcome Back
         </p>
 
-        {/* Error Message */}
         {errorMsg && (
           <div className="alert alert-error mb-4">
             {errorMsg}
@@ -70,11 +82,13 @@ const Login = () => {
 
           {/* Email */}
           <div className="mb-4">
+
             <label className="text-sm text-black font-medium">
               Email Address
             </label>
 
             <div className="flex items-center bg-amber-300 border rounded-lg mt-1 px-3">
+
               <input
                 type="email"
                 placeholder="Test@gmail.com"
@@ -85,6 +99,7 @@ const Login = () => {
               />
 
               <FaUser className="text-gray-400" />
+
             </div>
 
             {errors.email && (
@@ -92,17 +107,20 @@ const Login = () => {
                 {errors.email.message}
               </p>
             )}
+
           </div>
 
           {/* Password */}
           <div className="mb-4">
+
             <label className="text-sm font-medium text-black">
               Password
             </label>
 
             <div className="flex items-center border rounded-lg mt-1 px-3 bg-amber-300">
+
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="********"
                 className="w-full p-2 outline-none bg-transparent text-gray-900"
                 {...register("password", {
@@ -110,7 +128,14 @@ const Login = () => {
                 })}
               />
 
-              <FaEyeSlash className="text-gray-400" />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="text-gray-500"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+
             </div>
 
             {errors.password && (
@@ -118,17 +143,24 @@ const Login = () => {
                 {errors.password.message}
               </p>
             )}
+
           </div>
 
-          {/* Forgot */}
+          {/* Forgot Password */}
           <div className="text-right">
-              <Link to="/forgot-password" className="link link-primary text-sm">
-                Forgot Password?
-              </Link>
-            </div>
+
+            <Link
+              to="/forgot-password"
+              className="link link-primary text-sm"
+            >
+              Forgot Password?
+            </Link>
+
+          </div>
 
           {/* Buttons */}
-          <div className="flex gap-3">
+          <div className="flex gap-3 mt-4">
+
             <button
               type="submit"
               disabled={loading}
@@ -144,6 +176,7 @@ const Login = () => {
             >
               Sign Up
             </button>
+
           </div>
 
         </form>
@@ -153,8 +186,11 @@ const Login = () => {
         </div>
 
       </div>
+
     </div>
+
   );
+
 };
 
 export default Login;

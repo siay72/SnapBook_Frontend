@@ -10,7 +10,7 @@ const ProfileHeader = () => {
       {/* Cover */}
       <img
         src={user?.cover_image || "https://images.unsplash.com/photo-1529156069898-49953e39b3ac"}
-        className="w-full h-72 object-cover"
+        className="w-full h-72 object-cover mt-2 rounded-xl"
       />
 
       {/* Edit Cover Button */}
@@ -22,7 +22,7 @@ const ProfileHeader = () => {
       <div className="absolute left-10 top-16 bg-purple-100 rounded-xl shadow-lg p-6 w-72 text-center">
 
         <img
-          src={user?.profile_image || "https://i.pravatar.cc/100"}
+          src={user?.profile_picture || "https://i.pravatar.cc/100"}
           className="w-24 h-24 rounded-full mx-auto border-4 border-white"
         />
 

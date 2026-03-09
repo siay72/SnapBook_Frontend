@@ -28,8 +28,6 @@ const CommentSection = ({ postId, setPosts, }) => {
   const loggedUserId = Number(decoded?.user_id);
   const isStaffUser = decoded?.is_staff === true;
 
-  console.log("decoded:", decoded);
-  console.log("loggedUserId:", loggedUserId);
   console.log("isStaffUser:", isStaffUser);
 
 
@@ -178,7 +176,7 @@ const CommentSection = ({ postId, setPosts, }) => {
           <div key={comment.id} className="flex gap-3">
 
             <img
-              src={comment.user_profile_image || "https://i.pravatar.cc/40"}
+              src={comment.user_profile_picture || "https://i.pravatar.cc/40"}
               className="w-8 h-8 rounded-full"
             />
 

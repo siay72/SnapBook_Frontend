@@ -9,7 +9,7 @@ const ProfileSidebar = () => {
     <div className="bg-white rounded-xl shadow-md p-6 text-center">
 
       <img
-        src={user?.profile_image || "https://i.pravatar.cc/150"}
+        src={user?.profile_picture || "https://i.pravatar.cc/150"}
         alt="profile"
         className="w-24 h-24 rounded-full mx-auto"
       />
