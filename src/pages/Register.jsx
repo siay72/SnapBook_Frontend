@@ -6,8 +6,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 
 const Register = () => {
-
-  const { registerUser, errorMsg } = useAuthContext();
+  const { registerUser,resendActivationEmail, errorMsg } = useAuthContext();
   const [successMsg, setSuccessMsg] = useState("");
   const [registeredEmail, setRegisteredEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -77,6 +76,22 @@ const Register = () => {
               Activation email sent to: {registeredEmail}
             </p>
           )}
+          {successMsg && (
+              <div className="mt-3">
+                <button
+                  className="btn btn-outline btn-primary w-full"
+                  onClick={async () => {
+                    const response = await resendActivationEmail(registeredEmail);
+                    if (response?.success) {
+                      setSuccessMsg(response.message);
+                    }
+                  }}
+                >
+                  Resend Activation Email
+                </button>
+              </div>
+            )}
+
 
           <h2 className="text-4xl font-bold mb-2 text-black">
             Sign Up
