@@ -13,28 +13,33 @@ import EditProfile from "../pages/EditProfile";
 import ChangePassword from "../pages/ChangePassword";
 import UsersVisible from "../pages/UsersVisible";
 import OrderHistory from "../pages/OrderHistory";
+import PrivateRoute from "../components/PrivateRoute";
 
 export default function AppRoutes() {
   return (
     <Routes>
 
       {/* Public Routes */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="/activate/:uid/:token" element={<ActivateAccount />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/activate/:uid/:token" element={<ActivateAccount />} />
+        {/* Forgot password */}
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirm />} />
+
+      <Route/>
 
       {/* MainLayout Routes */}
       <Route
         element={ <MainLayout /> }>
         <Route path="/" element={<Feed />} />
         <Route path="/profile" element={<Profile />} />
+        
       </Route>
 
-      {/* Forgot password */}
-      <Route path="/forgot-password" element={<ForgotPassword />} />
-      <Route path="/password/reset/confirm/:uid/:token" element={<ResetPasswordConfirm />} />
+      
 
-      <Route element={<DashboardLayout />}>
+      <Route element={<PrivateRoute><DashboardLayout /></PrivateRoute>}>
 
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/settings/profile" element={<EditProfile />} />

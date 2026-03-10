@@ -175,12 +175,20 @@ const Register = () => {
                 </span>
               </label>
 
-              <input
-                type="text"
-                placeholder="Dhaka"
+              <select
                 className="bg-amber-500 border rounded-lg mt-1 p-2 w-full text-black"
                 {...register("location")}
-              />
+              >
+                <option value="">Select Location</option>
+                <option value="Dhaka">Dhaka</option>
+                <option value="Chittagong">Chittagong</option>
+                <option value="Khulna">Khulna</option>
+                <option value="Rajshahi">Rajshahi</option>
+                <option value="Barisal">Barisal</option>
+                <option value="Sylhet">Sylhet</option>
+                <option value="Rangpur">Rangpur</option>
+                <option value="Mymensingh">Mymensingh</option>
+              </select>
 
             </div>
 
