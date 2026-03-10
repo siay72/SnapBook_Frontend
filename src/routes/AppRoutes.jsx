@@ -12,6 +12,7 @@ import Dashboard from "../pages/Dashboard";
 import EditProfile from "../pages/EditProfile";
 import ChangePassword from "../pages/ChangePassword";
 import UsersVisible from "../pages/UsersVisible";
+import OrderHistory from "../pages/OrderHistory";
 
 export default function AppRoutes() {
   return (
@@ -39,6 +40,7 @@ export default function AppRoutes() {
         <Route path="/settings/profile" element={<EditProfile />} />
         <Route path="/settings/change-password" element={<ChangePassword />} />
         <Route path="/dashboard/users" element={<UsersVisible />} />
+        <Route path="/order-history" element={<OrderHistory />} />
 
       </Route>
 

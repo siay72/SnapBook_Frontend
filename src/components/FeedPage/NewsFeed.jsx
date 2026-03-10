@@ -18,12 +18,13 @@ const NewsFeed = () => {
 
   try {
 
-    const response = await apiClients.get(`/posts/?search=${searchQuery}`);
+    const url = searchQuery
+      ? `/posts/?search=${searchQuery}`
+      : `/posts/`;
 
-    const data = response.data;
+    const response = await apiClients.get(url);
 
-    // Support both paginated and non-paginated responses
-    setPosts(data.results || data);
+    setPosts(response.data.results || response.data);
 
   } catch (error) {
 

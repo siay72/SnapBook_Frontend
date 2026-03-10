@@ -89,7 +89,7 @@ const UsersVisible = () => {
         <table className="table w-full">
 
           <thead className="bg-gray-100">
-            <tr>
+            <tr className="text-left text-black">
               <th>ID</th>
               <th>Profile</th>
               <th>Name</th>

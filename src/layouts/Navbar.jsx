@@ -16,24 +16,28 @@ const Navbar = () => {
 
   useEffect(() => {
 
-    const fetchPostCount = async () => {
+  const fetchPostCount = async () => {
 
-      try {
+    try {
 
-        const response = await authApiClient.get("/posts/");
-        setTotalPosts(response.data.count);
+      const response = await authApiClient.get("/posts/");
+      const data = response.data;
 
-      } catch (error) {
+      const count = data.count ?? data.length;
 
-        console.log("Error fetching post count", error);
+      setTotalPosts(count);
 
-      }
+    } catch (error) {
 
-    };
+      console.log("Error fetching post count", error);
 
-    fetchPostCount();
+    }
 
-  }, []);
+  };
+
+  fetchPostCount();
+
+}, []);
 
   const handleSearch = (value) => {
 

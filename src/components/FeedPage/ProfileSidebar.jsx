@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuthContext from "../../hooks/useAuthContext";
 
 const ProfileSidebar = () => {
@@ -8,19 +8,22 @@ const ProfileSidebar = () => {
   return (
     <div className="bg-white rounded-xl shadow-md p-6 text-center">
 
-      <img
-        src={user?.profile_picture || "https://i.pravatar.cc/150"}
-        alt="profile"
-        className="w-24 h-24 rounded-full mx-auto"
-      />
+      <Link to="/profile">
+
+        <img
+          src={user?.profile_picture || "/default-profile.png"}
+          alt="Profile"
+          className="w-24 h-24 rounded-full mx-auto object-cover border-2 border-gray-300"
+        />  
+      </Link>
 
       <h2 className="text-lg text-black font-bold mt-3">
         {user?.first_name} {user?.last_name}
       </h2>
 
 
-      <p className="text-gray-400 text-xs mt-2">
-        Lorem Ipsum is simply dummy text of the printing industry.
+      <p className="text-gray-400 text-xs mt-2 text-semibold">
+        HI! My name is {user?.first_name} {user?.last_name}. I lived in {user?.location} and I am a passionate software developer with a love for creating innovative solutions. With a strong background in full-stack development, I enjoy building user-friendly applications that make a difference. When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing my knowledge through tech blogs and workshops. Let's connect and create something amazing together!
       </p>
 
       <div className="flex justify-around mt-6">

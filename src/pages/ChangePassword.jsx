@@ -76,6 +76,7 @@ const ChangePassword = () => {
 
               <input
                 type={showPassword ? "text" : "password"}
+                placeholder="********"
                 className="bg-amber-500 border rounded-lg mt-1 p-2 w-full text-black"
                 {...register("current_password", {
                   required: "Current password is required"
@@ -101,6 +102,7 @@ const ChangePassword = () => {
 
               <input
                 type={showPassword ? "text" : "password"}
+                placeholder="********"
                 className="bg-amber-500 border rounded-lg mt-1 p-2 w-full text-black"
                 {...register("new_password", {
                   required: "New password is required",
@@ -130,6 +132,7 @@ const ChangePassword = () => {
 
               <input
                 type={showPassword ? "text" : "password"}
+                placeholder="********"
                 className="bg-amber-500 border rounded-lg mt-1 p-2 w-full text-black"
                 {...register("confirm_password", {
                   required: "Confirm password is required",

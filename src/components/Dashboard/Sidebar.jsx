@@ -9,6 +9,7 @@ import {
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import { FaJediOrder } from "react-icons/fa";
 
 const Sidebar = () => {
 
@@ -48,6 +49,11 @@ const Sidebar = () => {
           <li>
             <Link className="flex items-center gap-3">
               <FiMessageSquare /> Messages
+            </Link>
+          </li>
+          <li>
+            <Link to="/order-history" className="flex items-center gap-3">
+              <FaJediOrder /> Order History
             </Link>
           </li>
 
