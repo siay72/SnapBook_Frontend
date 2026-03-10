@@ -98,6 +98,7 @@ const CommentSection = ({ postId, setPosts, }) => {
 
       setComments(prev => prev.filter(c => c.id !== deleteId));
       setDeleteId(null);
+      toast.success("Comment Deleted Successfully.");
 
     } catch (err) {
 
@@ -108,7 +109,7 @@ const CommentSection = ({ postId, setPosts, }) => {
       }
 
     } finally {
-      toast.success("Comment Deleted Successfully.");
+      
       setDeleteLoading(false);
     }
   };
