@@ -55,7 +55,7 @@ const Navbar = () => {
 
   return (
 
-    <div className="navbar bg-sky-600 text-white px-4">
+    <div className="navbar sticky top-0 z-50 bg-sky-600/90 backdrop-blur-md text-white px-4 shadow-md">
 
       {/* LEFT */}
       <div className="navbar-start gap-2">
@@ -67,7 +67,7 @@ const Navbar = () => {
 
         {/* Logo */}
         <h1
-          className="text-lg sm:text-xl font-bold cursor-pointer"
+          className="text-xl sm:text-xl font-bold cursor-pointer"
           onClick={() => navigate("/")}
         >
           SnapBook

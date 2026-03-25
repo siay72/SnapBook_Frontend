@@ -13,7 +13,7 @@ const DashboardLayout = () => {
       <div className="drawer-content flex flex-col min-h-screen">
         <Navbar />
 
-        <main className="p-4 sm:p-6 lg:p-8 bg-white">
+        <main className="bg-white">
           <Outlet />
         </main>
       </div>
