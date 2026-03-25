@@ -41,7 +41,7 @@ const Sidebar = () => {
           </li>
 
           <li>
-            <Link to="/myposts" className="flex items-center gap-3">
+            <Link to="/dashboard/myposts" className="flex items-center gap-3">
               <FiImage /> My Posts
             </Link>
           </li>

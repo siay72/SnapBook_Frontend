@@ -1,5 +1,5 @@
 
-import ProfileFeeds from "../components/Profile/ProfileFeeds";
+import NewsFeed from "../components/FeedPage/NewsFeed";
 
 export default function Dashboard() {
 
@@ -11,7 +11,7 @@ export default function Dashboard() {
         News Feed
       </h2>
 
-      <ProfileFeeds />
+      <NewsFeed />
 
     </div>
 

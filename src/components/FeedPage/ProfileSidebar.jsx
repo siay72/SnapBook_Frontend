@@ -6,7 +6,7 @@ const ProfileSidebar = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6 text-center">
+    <div className="bg-linear-to-r from-blue-500 to-purple-500 rounded-xl shadow-md p-6 text-center">
 
       <Link to="/profile">
 
@@ -22,7 +22,7 @@ const ProfileSidebar = () => {
       </h2>
 
 
-      <p className="text-gray-400 text-xs mt-2 text-semibold">
+      <p className="text-white text-xs mt-2 text-semibold">
         HI! My name is {user?.first_name} {user?.last_name}. I lived in {user?.location} and I am a passionate software developer with a love for creating innovative solutions. With a strong background in full-stack development, I enjoy building user-friendly applications that make a difference. When I'm not coding, you can find me exploring new technologies, contributing to open-source projects, or sharing my knowledge through tech blogs and workshops. Let's connect and create something amazing together!
       </p>
 

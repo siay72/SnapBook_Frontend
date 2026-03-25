@@ -30,12 +30,11 @@ const CreatePost = ({ onPostCreated }) => {
 
       setCaption("");
       setImage(null);
-     
 
-      // refresh feed
       if (onPostCreated) {
         onPostCreated(response.data);
       }
+
       toast.success("Post created successfully!");
     } catch (error) {
       console.log("Error creating post", error);
@@ -47,9 +46,13 @@ const CreatePost = ({ onPostCreated }) => {
 
   return (
     <div className="bg-white shadow rounded-xl p-4 mb-6">
-        <h1 className="text-xl font-bold text-black mb-2">Create Post</h1>
-      {/* User info */}
-      <div className="flex items-center gap-3 mb-3">
+      <h1 className="text-lg md:text-xl font-bold text-black mb-2">
+        Create Post
+      </h1>
+
+      {/* User + Input */}
+      <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-3">
+
         <img
           src={user?.profile_picture || "https://i.pravatar.cc/40"}
           onClick={() => navigate("/profile")}
@@ -61,30 +64,28 @@ const CreatePost = ({ onPostCreated }) => {
           placeholder="Write something here..."
           value={caption}
           onChange={(e) => setCaption(e.target.value)}
-          className="flex-1 bg-gray-100 text-black rounded-full px-4 py-2 outline-none"
+          className="w-full flex-1 bg-gray-100 text-black rounded-full px-4 py-2 outline-none text-sm md:text-base"
         />
       </div>
 
-      {/* Upload section */}
-      <div className="flex items-center justify-between mt-3">
+      {/* Upload + Button */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-3">
 
         <input
           type="file"
           onChange={(e) => setImage(e.target.files[0])}
-            className="text-sm text-blue-500"
+          className="text-sm text-blue-500 w-full sm:w-auto"
         />
 
         <button
           onClick={handleSubmit}
-          className="bg-sky-600 text-white px-4 py-2 rounded-lg"
-        
-          
+          disabled={loading}
+          className="w-full sm:w-auto bg-sky-600 text-white px-4 py-2 rounded-lg disabled:opacity-50"
         >
           {loading ? "Posting..." : "Post"}
         </button>
 
       </div>
-
     </div>
   );
 };
