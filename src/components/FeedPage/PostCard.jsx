@@ -3,6 +3,7 @@ import CommentSection from "./CommentSection";
 import apiClients from "../../services/auth-api-client";
 import toast from "react-hot-toast";
 import useAuth from "../../hooks/useAuth";
+import { Link, } from "react-router-dom";
 
 
 const PostCard = ({ post, setPosts }) => {
@@ -149,11 +150,13 @@ const PostCard = ({ post, setPosts }) => {
 
         <div className="flex items-center gap-3">
 
+        <Link to={`/profile/${post.user_id}`}>
           <img
-            src={post.user_profile_picture || "https://i.pravatar.cc/40"}
-            alt="profile"
-            className="w-10 h-10 rounded-full object-cover"
+            src={post.user_profile_picture || "/public/defualt_pic.png"}
+            className="w-10 h-10 rounded-full"
           />
+        </Link>
+
 
           <div>
 

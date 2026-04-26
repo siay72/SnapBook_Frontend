@@ -34,7 +34,8 @@ export default function AppRoutes() {
       <Route
         element={ <MainLayout /> }>
         <Route path="/" element={<Feed />} />
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile/:id" element={<Profile/>} />
+        <Route path="/profile" element={<Profile/>} />
         
       </Route>
 

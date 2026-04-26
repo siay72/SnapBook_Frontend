@@ -17,7 +17,7 @@ const useAuth = () => {
     try {
       const response = await apiClient.get("/auth/users/me/", {
         headers: {
-          Authorization: `JWT ${authTokens?.access}`,
+          Authorization: `Bearer ${authTokens?.access}`,
         },
       });
 

@@ -107,7 +107,7 @@ const EditProfile = () => {
           <div className="flex justify-center mb-4">
 
             <img
-              src={preview || "https://i.pravatar.cc/150"}
+              src={preview || "/public/defualt_pic.png"}
               alt="profile"
               className="w-24 h-24 rounded-full object-cover border"
             />

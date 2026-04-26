@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const authApiClient = axios.create({
-  baseURL: "https://snap-book.vercel.app/api",
+  baseURL: "http://127.0.0.1:8000/api",
 });
 
 authApiClient.interceptors.request.use(
@@ -10,7 +10,7 @@ authApiClient.interceptors.request.use(
 
     if (token) {
       const access = JSON.parse(token).access;
-      config.headers.Authorization = `JWT ${access}`;
+      config.headers.Authorization = `Bearer ${access}`;
     }
 
     return config;

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import authApiClient from "../services/auth-api-client";
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
+import { Link, } from "react-router-dom";
 
 const UsersVisible = () => {
 
@@ -109,7 +110,7 @@ const UsersVisible = () => {
 
                 <td>
                   <img
-                    src={u.profile_picture}
+                    src={u.profile_picture || "/public/defualt_pic.png"}
                     alt="profile"
                     className="w-10 h-10 rounded-full"
                   />
@@ -132,9 +133,9 @@ const UsersVisible = () => {
                     Delete
                   </button>
 
-                  <button className="btn btn-sm btn-info">
+                  <Link to={`/profile/${u.id}/`} className="btn btn-sm btn-info">
                     View Posts
-                  </button>
+                  </Link>
 
                 </td>
 

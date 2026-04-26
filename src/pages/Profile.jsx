@@ -1,3 +1,6 @@
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import authApiClient from "../services/auth-api-client";
 import ProfileAbout from "../components/Profile/ProfileAbout";
 import RightSidebar from "../components/FeedPage/RightSidebar";
 import ProfileHeader from "../components/Profile/ProfileHeader";
@@ -6,12 +9,33 @@ import ProfileFeeds from "../components/Profile/ProfileFeeds";
 
 const Profile = () => {
 
+  const { id } = useParams();
+  const [profileUser, setProfileUser] = useState(null);
+
+  useEffect(() => {
+
+    const fetchProfile = async () => {
+      try {
+        const res = await authApiClient.get(`/profile/${id}/`);
+        setProfileUser(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    if (id) fetchProfile();
+
+  }, [id]);
 
   return (
-    <div className="max-w-7xl bg-white mx-auto px-4">
+  
+
+
+
+ <div className="max-w-7xl bg-white mx-auto px-4">
 
       {/* Cover */}
-      <ProfileHeader />
+      <ProfileHeader user={profileUser}/>
 
       {/* Tabs */}
       <ProfileTabs />
@@ -35,7 +59,7 @@ const Profile = () => {
             </h2>
 
 
-              <ProfileFeeds />
+              <ProfileFeeds userId={id}/>
    
 
           </div>

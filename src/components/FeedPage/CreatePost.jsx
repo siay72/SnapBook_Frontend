@@ -54,7 +54,7 @@ const CreatePost = ({ onPostCreated }) => {
       <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-3">
 
         <img
-          src={user?.profile_picture || "https://i.pravatar.cc/40"}
+          src={user?.profile_picture || "/public/defualt_pic.png"}
           onClick={() => navigate("/profile")}
           className="w-10 h-10 rounded-full cursor-pointer"
         />

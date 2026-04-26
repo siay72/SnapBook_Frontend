@@ -4,6 +4,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import useAuthContext from "../hooks/useAuthContext";
 import authApiClient from "../services/auth-api-client";
 import { AiFillDashboard } from "react-icons/ai";
+import Notification from "../components/Profile/Notification/Notification";
 
 const Navbar = () => {
 
@@ -11,33 +12,37 @@ const Navbar = () => {
   const [totalPosts, setTotalPosts] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchQuery, setSearchQuery] = useState(searchParams.get("search") || "");
+  const [totalFriends, setTotalFriends] = useState(0);
 
   const navigate = useNavigate();
 
   useEffect(() => {
 
-  const fetchPostCount = async () => {
+    const fetchCounts = async () => {
 
-    try {
+      try {
+        // POSTS
+        const postRes = await authApiClient.get("/posts/");
+        const postData = postRes.data;
+        const postCount = postData.count ?? postData.length;
+        setTotalPosts(postCount);
 
-      const response = await authApiClient.get("/posts/");
-      const data = response.data;
+        //  FRIENDS
+        const friendRes = await authApiClient.get("/friends/");
+        const friendData = friendRes.data;
 
-      const count = data.count ?? data.length;
+        setTotalFriends(friendData.length);
 
-      setTotalPosts(count);
+      } catch (error) {
+        console.log("Error fetching counts", error);
+      }
 
-    } catch (error) {
+    };
 
-      console.log("Error fetching post count", error);
+    fetchCounts();
 
-    }
+  }, []);
 
-  };
-
-  fetchPostCount();
-
-}, []);
 
   const handleSearch = (value) => {
 
@@ -83,7 +88,7 @@ const Navbar = () => {
         </div>
 
         <div className="bg-sky-500 px-4 py-1 rounded-lg">
-          <span className="font-bold">2456</span> Total Friends
+          <span className="font-bold">{totalFriends}</span> Total Friends
         </div>
 
       </div>
@@ -101,15 +106,7 @@ const Navbar = () => {
         />
 
         {/* Notification */}
-        <div className="relative cursor-pointer">
-
-          <FiBell className="text-xl" />
-
-          <span className="absolute -top-2 -right-2 bg-red-500 text-xs px-1 rounded-full">
-            2
-          </span>
-
-        </div>
+        <Notification />
 
         {/* USER */}
         {user ? (
@@ -119,7 +116,7 @@ const Navbar = () => {
             <label tabIndex={0} className="flex items-center gap-2 cursor-pointer">
 
               <img
-                src={user.profile_picture || "https://i.pravatar.cc/40"}
+                src={user.profile_picture || "/public/defualt_pic.png"}
                 className="w-8 h-8 rounded-full"
                 alt="avatar"
               />
