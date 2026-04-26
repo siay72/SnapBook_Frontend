@@ -1,6 +1,6 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "https://snap-book-frontend.vercel.app/api",
+  baseURL: "https://snap-book.vercel.app/",
 });
 

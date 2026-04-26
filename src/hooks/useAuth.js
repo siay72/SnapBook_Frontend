@@ -16,9 +16,6 @@ const useAuth = () => {
   const fetchUserProfile = async () => {
     try {
       const response = await apiClient.get("/auth/users/me/", {
-        headers: {
-          Authorization: `Bearer ${authTokens?.access}`,
-        },
       });
 
       setUser(response.data);

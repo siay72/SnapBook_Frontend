@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const authApiClient = axios.create({
-  baseURL: "https://snap-book-frontend.vercel.app/api",
+  baseURL: "https://snap-book.vercel.app/api",
 });
 
 authApiClient.interceptors.request.use(

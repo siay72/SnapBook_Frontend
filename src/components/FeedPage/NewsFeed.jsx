@@ -24,7 +24,9 @@ const NewsFeed = () => {
 
     const response = await apiClients.get(url);
 
-    setPosts(response.data.results || response.data);
+    setPosts(Array.isArray(response.data)
+    ? response.data
+    : response.data.results || []);
 
   } catch (error) {
 
